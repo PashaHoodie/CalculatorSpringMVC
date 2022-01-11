@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 public class CalcController {
 
     @Autowired
-    CalcService caclService = new CalcService();
+    CalcService calcService = new CalcService();
 
     @GetMapping
     public String calc(){
@@ -26,15 +26,15 @@ public class CalcController {
 
     @PostMapping
     public String calc(Operation operation,HttpSession httpSession){
-        String op = caclService.getOperation(operation.getOperation());
+        String op = calcService.getOperation(operation);
         if ("sum".equals(op)) {
-            httpSession.setAttribute("result", operation.getNum1() + operation.getNum2());
+            httpSession.setAttribute("result", calcService.getResult(operation));
         } else if ("subtraction".equals(op)) {
-            httpSession.setAttribute("result", operation.getNum1() - operation.getNum2());
+            httpSession.setAttribute("result",  calcService.getResult(operation));
         } else if ("division".equals(op)){
-            httpSession.setAttribute("result", operation.getNum1() / operation.getNum2());
+            httpSession.setAttribute("result",  calcService.getResult(operation));
         } else if ("multiplication".equals(op)){
-            httpSession.setAttribute("result", operation.getNum1() * operation.getNum2());
+            httpSession.setAttribute("result",  calcService.getResult(operation));
         }
         return "calc";
     }
